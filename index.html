@@ -24,10 +24,6 @@
       margin: 20px auto;
     }
 
-    .player {
-      margin-top: 20px;
-    }
-
     .fotos {
       display: flex;
       justify-content: center;
@@ -63,13 +59,10 @@
 
   <h1>Eu te amo muito meu amor ❤️</h1>
 
-  <!-- Player de música -->
-  <div class="player">
-    <audio controls autoplay loop>
-      <source src="musica.mp3.mp3" type="audio/mpeg">
-      Seu navegador não suporta áudio.
-    </audio>
-  </div>
+  <!-- Música invisível -->
+  <audio id="musica" loop>
+    <source src="musica.mp3.mp3" type="audio/mpeg">
+  </audio>
 
   <p>
     Desde o dia em que você entrou na minha vida, tudo ficou mais leve, mais bonito e mais feliz.
@@ -100,8 +93,15 @@
     }
 
     setInterval(createHeart, 300);
+
+    // Inicia a música no primeiro clique
+    document.addEventListener("click", () => {
+      const musica = document.getElementById("musica");
+      musica.play();
+    }, { once: true });
   </script>
 
 </body>
 </html>
+
 
