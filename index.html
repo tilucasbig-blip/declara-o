@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nosso Amor ❤️</title>
   <style>
     body {
@@ -79,6 +80,7 @@
   </div>
 
   <script>
+    // Corações caindo
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
@@ -87,14 +89,11 @@
       heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
       document.body.appendChild(heart);
 
-      setTimeout(() => {
-        heart.remove();
-      }, 5000);
+      setTimeout(() => heart.remove(), 5000);
     }
-
     setInterval(createHeart, 300);
 
-    // Inicia a música no primeiro clique
+    // Música começa no primeiro toque (compatível com celular)
     document.addEventListener("click", () => {
       const musica = document.getElementById("musica");
       musica.play();
@@ -103,5 +102,4 @@
 
 </body>
 </html>
-
 
