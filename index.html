@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Yasmim 💖</title>
+<title>Para meu amor 💖</title>
 
 <style>
   body {
@@ -32,25 +32,24 @@
   .slideshow-container {
     width: 90%;
     max-width: 420px;
-    aspect-ratio: 5 / 6;
     margin: 30px auto;
     position: relative;
-    overflow: hidden;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    background: rgba(255,182,193,0.3);
   }
 
   .slides {
-    position: absolute;
+    display: none;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
+    height: auto;              /* altura real da foto */
+    max-height: 80vh;          /* evita foto gigante */
+    object-fit: contain;       /* nunca corta */
+    border-radius: 15px;
   }
 
   .slides.active {
-    opacity: 1;
+    display: block;
   }
 
   /* PLAYER INVISÍVEL */
@@ -111,15 +110,12 @@
     margin-bottom: 12px;
   }
 
-  /* AJUSTES PARA TELAS PEQUENAS */
   @media (max-width: 480px) {
-    .back {
-      font-size: 0.9em;
-      padding: 12px;
-    }
-
     .envelope {
       height: 240px;
+    }
+    .back {
+      font-size: 0.9em;
     }
   }
 </style>
@@ -129,29 +125,31 @@
 
 <!-- Música invisível -->
 <audio autoplay loop>
-  <source src="musica.mp3" type="audio/mp3">
+  <source src="musica.mp3.mp3" type="audio/mp3">
 </audio>
 
-<!-- Slideshow -->
+<!-- SLIDESHOW -->
 <div class="slideshow-container">
-  <img class="slides" src="foto1.jpeg">
+  <img class="slides active" src="foto1.jpeg">
   <img class="slides" src="foto2.jpeg">
   <img class="slides" src="foto3.jpeg">
+  <img class="slides" src="foto4.jpeg">
+  <img class="slides" src="foto5.jpeg">
 </div>
 
 <!-- CARTA -->
 <div class="envelope" onclick="abrirCarta()">
   <div class="envelope-inner">
-    <div class="front">💌</div>
+    <div class="front">🍎​</div>
     <div class="back">
       <p>
-        Yasmim, amar você é como acordar todos os dias com o coração em paz, mesmo quando o mundo lá fora insiste em bagunçar tudo. Você tem esse jeito raro de iluminar meus dias só existindo.
+        Amor, amar você é como acordar todos os dias com o coração em paz, mesmo quando o mundo lá fora insiste em bagunçar tudo. Você tem esse jeito raro de iluminar meus dias só existindo.
       </p>
       <p>
         Quando penso em amor, penso em você nos detalhes pequenos. Amar você não é esforço, é escolha diária — e a mais fácil que já fiz.
       </p>
       <p>
-        Eu te amo, Yasmim, com tudo o que sou 🤍
+        Eu te amo, amor, com tudo o que sou 🍎​
       </p>
     </div>
   </div>
@@ -170,7 +168,7 @@
   }
   setInterval(criarCoracao, 400);
 
-  // SLIDESHOW
+  // SLIDESHOW (SEM ALTURA FIXA)
   let index = 0;
   const slides = document.querySelectorAll('.slides');
 
@@ -182,7 +180,6 @@
   }
   showSlides();
 
-  // CARTA
   function abrirCarta() {
     document.querySelector('.envelope').classList.toggle('open');
   }
