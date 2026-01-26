@@ -1,105 +1,192 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nosso Amor ❤️</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
-      text-align: center;
-      color: #fff;
-      overflow-x: hidden;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Yasmim 💖</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: url('images2.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  /* CORAÇÕES */
+  .heart {
+    position: absolute;
+    animation: float 5s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-1000px); opacity: 0; }
+  }
+
+  /* SLIDESHOW */
+  .slideshow-container {
+    width: 90%;
+    max-width: 420px;
+    aspect-ratio: 5 / 6;
+    margin: 30px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+
+  .slides {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .slides.active {
+    opacity: 1;
+  }
+
+  /* PLAYER INVISÍVEL */
+  audio {
+    display: none;
+  }
+
+  /* CARTA */
+  .envelope {
+    width: 90%;
+    max-width: 320px;
+    height: 220px;
+    margin: 40px auto 60px;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+
+  .envelope-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+  }
+
+  .envelope.open .envelope-inner {
+    transform: rotateX(180deg);
+  }
+
+  .front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+  }
+
+  .front {
+    background: #c1121f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2em;
+    color: #000;
+  }
+
+  .back {
+    background: #e63946;
+    transform: rotateX(180deg);
+    padding: 15px;
+    overflow-y: auto;
+    color: #000;
+    font-size: 0.95em;
+    line-height: 1.6;
+  }
+
+  .back p {
+    margin-bottom: 12px;
+  }
+
+  /* AJUSTES PARA TELAS PEQUENAS */
+  @media (max-width: 480px) {
+    .back {
+      font-size: 0.9em;
+      padding: 12px;
     }
 
-    h1 {
-      margin-top: 30px;
-      font-size: 2.5em;
+    .envelope {
+      height: 240px;
     }
-
-    p {
-      font-size: 1.2em;
-      max-width: 600px;
-      margin: 20px auto;
-    }
-
-    .fotos {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin: 30px;
-    }
-
-    .fotos img {
-      width: 200px;
-      height: auto;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-
-    /* Corações animados */
-    .heart {
-      position: fixed;
-      color: red;
-      font-size: 20px;
-      animation: fall 5s linear infinite;
-      top: -10%;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(110vh);
-      }
-    }
-  </style>
+  }
+</style>
 </head>
+
 <body>
 
-  <h1>Eu te amo muito meu amor ❤️</h1>
+<!-- Música invisível -->
+<audio autoplay loop>
+  <source src="musica.mp3" type="audio/mp3">
+</audio>
 
-  <!-- Música invisível -->
-  <audio id="musica" loop>
-    <source src="musica.mp3.mp3" type="audio/mpeg">
-  </audio>
+<!-- Slideshow -->
+<div class="slideshow-container">
+  <img class="slides" src="foto1.jpeg">
+  <img class="slides" src="foto2.jpeg">
+  <img class="slides" src="foto3.jpeg">
+</div>
 
-  <p>
-    Desde o dia em que você entrou na minha vida, tudo ficou mais leve, mais bonito e mais feliz.
-    Obrigado por cada momento, cada sorriso e cada abraço.
-    Eu te amo hoje e sempre 💕
-  </p>
-
-  <div class="fotos">
-    <img src="foto1.jpeg">
-    <img src="foto2.jpeg">
-    <img src="foto3.jpeg">
-    <img src="foto4.jpeg">
-    <img src="foto5.jpeg">
+<!-- CARTA -->
+<div class="envelope" onclick="abrirCarta()">
+  <div class="envelope-inner">
+    <div class="front">💌</div>
+    <div class="back">
+      <p>
+        Yasmim, amar você é como acordar todos os dias com o coração em paz, mesmo quando o mundo lá fora insiste em bagunçar tudo. Você tem esse jeito raro de iluminar meus dias só existindo.
+      </p>
+      <p>
+        Quando penso em amor, penso em você nos detalhes pequenos. Amar você não é esforço, é escolha diária — e a mais fácil que já fiz.
+      </p>
+      <p>
+        Eu te amo, Yasmim, com tudo o que sou 🤍
+      </p>
+    </div>
   </div>
+</div>
 
-  <script>
-    // Corações caindo
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerHTML = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-      document.body.appendChild(heart);
+<script>
+  // CORAÇÕES
+  function criarCoracao() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+    heart.textContent = '🍎​';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+  setInterval(criarCoracao, 400);
 
-      setTimeout(() => heart.remove(), 5000);
-    }
-    setInterval(createHeart, 300);
+  // SLIDESHOW
+  let index = 0;
+  const slides = document.querySelectorAll('.slides');
 
-    // Música começa no primeiro toque (compatível com celular)
-    document.addEventListener("click", () => {
-      const musica = document.getElementById("musica");
-      musica.play();
-    }, { once: true });
-  </script>
+  function showSlides() {
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[index].classList.add('active');
+    index = (index + 1) % slides.length;
+    setTimeout(showSlides, 3000);
+  }
+  showSlides();
+
+  // CARTA
+  function abrirCarta() {
+    document.querySelector('.envelope').classList.toggle('open');
+  }
+</script>
 
 </body>
 </html>
-
