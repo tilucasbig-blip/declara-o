@@ -16,16 +16,18 @@
     overflow-x: hidden;
   }
 
-  /* CORAÇÕES */
+  /* EMOJIS FLUTUANTES (FIXED = NÃO MEXE A TELA) */
   .heart {
-    position: absolute;
-    animation: float 5s linear infinite;
+    position: fixed;
+    bottom: -40px;
+    animation: float 6s linear infinite;
     pointer-events: none;
+    z-index: 0;
   }
 
   @keyframes float {
     0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-1000px); opacity: 0; }
+    100% { transform: translateY(-110vh); opacity: 0; }
   }
 
   /* SLIDESHOW */
@@ -37,14 +39,15 @@
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     background: rgba(255,182,193,0.3);
+    z-index: 1;
   }
 
   .slides {
     display: none;
     width: 100%;
-    height: auto;              /* altura real da foto */
-    max-height: 80vh;          /* evita foto gigante */
-    object-fit: contain;       /* nunca corta */
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
     border-radius: 15px;
   }
 
@@ -52,7 +55,6 @@
     display: block;
   }
 
-  /* PLAYER INVISÍVEL */
   audio {
     display: none;
   }
@@ -65,6 +67,7 @@
     margin: 40px auto 60px;
     perspective: 1000px;
     cursor: pointer;
+    z-index: 1;
   }
 
   .envelope-inner {
@@ -106,26 +109,19 @@
     line-height: 1.6;
   }
 
-  .back p {
-    margin-bottom: 12px;
-  }
-
   @media (max-width: 480px) {
     .envelope {
       height: 240px;
-    }
-    .back {
-      font-size: 0.9em;
     }
   }
 </style>
 </head>
 
-<body>
+<body onclick="ativarMusica()">
 
-<!-- Música invisível -->
-<audio autoplay loop>
-  <source src="musica.mp3.mp3" type="audio/mp3">
+<!-- MÚSICA (COMEÇA MUTADA) -->
+<audio id="musica" autoplay loop muted>
+  <source src="musica.mp3" type="audio/mp3">
 </audio>
 
 <!-- SLIDESHOW -->
@@ -140,35 +136,35 @@
 <!-- CARTA -->
 <div class="envelope" onclick="abrirCarta()">
   <div class="envelope-inner">
-    <div class="front">🍎​</div>
+    <div class="front">🍎</div>
     <div class="back">
       <p>
-        Amor, amar você é como acordar todos os dias com o coração em paz, mesmo quando o mundo lá fora insiste em bagunçar tudo. Você tem esse jeito raro de iluminar meus dias só existindo.
+        Amor, amar você é como acordar todos os dias com o coração em paz, mesmo quando o mundo lá fora insiste em bagunçar tudo.
       </p>
       <p>
-        Quando penso em amor, penso em você nos detalhes pequenos. Amar você não é esforço, é escolha diária — e a mais fácil que já fiz.
+        Amar você não é esforço, é escolha diária — e a mais fácil que já fiz.
       </p>
       <p>
-        Eu te amo, amor, com tudo o que sou 🍎​
+        Eu te amo, amor, com tudo o que sou 🍎
       </p>
     </div>
   </div>
 </div>
 
 <script>
-  // CORAÇÕES
+  /* EMOJIS */
   function criarCoracao() {
     const heart = document.createElement('div');
     heart.className = 'heart';
     heart.style.left = Math.random() * window.innerWidth + 'px';
     heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
-    heart.textContent = '🍎​';
+    heart.textContent = '🍎';
     document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
+    setTimeout(() => heart.remove(), 6000);
   }
-  setInterval(criarCoracao, 400);
+  setInterval(criarCoracao, 500);
 
-  // SLIDESHOW (SEM ALTURA FIXA)
+  /* SLIDES */
   let index = 0;
   const slides = document.querySelectorAll('.slides');
 
@@ -180,8 +176,17 @@
   }
   showSlides();
 
+  /* CARTA */
   function abrirCarta() {
     document.querySelector('.envelope').classList.toggle('open');
+  }
+
+  /* ATIVA SOM NO PRIMEIRO TOQUE */
+  function ativarMusica() {
+    const musica = document.getElementById('musica');
+    musica.muted = false;
+    musica.play();
+    document.body.onclick = null;
   }
 </script>
 
