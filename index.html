@@ -1,195 +1,391 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para meu amor 💖</title>
+<title>4 Meses de Amor ❤️</title>
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: url('images2.jpeg') no-repeat center center fixed;
-    background-size: cover;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-  /* EMOJIS FLUTUANTES (FIXED = NÃO MEXE A TELA) */
-  .heart {
-    position: fixed;
-    bottom: -40px;
-    animation: float 6s linear infinite;
-    pointer-events: none;
-    z-index: 0;
-  }
+body{
+    font-family:Arial,sans-serif;
+    background:radial-gradient(circle at bottom,#0b0c2a,#000);
+    color:white;
+    text-align:center;
+    overflow-x:hidden;
+}
 
-  @keyframes float {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-110vh); opacity: 0; }
-  }
+/* ===== CONTAINER ===== */
+.container{max-width:1200px;margin:auto;padding:20px;}
 
-  /* SLIDESHOW */
-  .slideshow-container {
-    width: 90%;
-    max-width: 420px;
-    margin: 30px auto;
-    position: relative;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    background: rgba(255,182,193,0.3);
-    z-index: 1;
-  }
+/* ===== TELA SENHA ===== */
+#telaSenha{
+    position:fixed;inset:0;background:#000;
+    display:flex;flex-direction:column;
+    justify-content:center;align-items:center;
+    z-index:999;
+}
+#telaSenha input{
+    padding:12px;font-size:18px;border-radius:10px;
+    border:none;text-align:center;margin-top:10px;
+}
+#telaSenha button{
+    margin-top:10px;padding:10px 20px;
+    border:none;border-radius:10px;
+    background:#ff4da6;color:white;cursor:pointer;
+}
 
-  .slides {
-    display: none;
-    width: 100%;
-    height: auto;
-    max-height: 80vh;
-    object-fit: contain;
-    border-radius: 15px;
-  }
+/* ===== ESTRELAS ===== */
+.estrela{
+    position:fixed;width:2px;height:2px;background:white;
+    animation:brilhar 2s infinite alternate;
+}
+@keyframes brilhar{from{opacity:.2;}to{opacity:1;}}
 
-  .slides.active {
-    display: block;
-  }
+/* ===== CONTADOR ===== */
+.contador{
+    font-family:'Courier New',monospace;
+    margin:20px auto;padding:20px;
+    border-radius:20px;background:rgba(0,0,0,.6);
+    border:3px solid #ff4da6;
+    box-shadow:0 0 20px #ff4da6;
+    animation:brilho 3s infinite alternate;
+}
+@keyframes brilho{
+    from{box-shadow:0 0 10px #ff4da6;}
+    to{box-shadow:0 0 40px #ff66b2;}
+}
+.numero{
+    display:inline-block;
+    text-shadow:0 0 10px #ff4da6;
+    animation:pulsar 1.2s infinite;
+}
+@keyframes pulsar{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.15);}
+    100%{transform:scale(1);}
+}
 
-  audio {
-    display: none;
-  }
+/* ===== BOTÃO ===== */
+button{
+    margin:20px 0;padding:12px 25px;
+    border:none;border-radius:12px;
+    background:#ff4da6;color:white;
+    cursor:pointer;font-size:16px;
+}
+button:hover{background:#ff1a75;}
+#surpresa{display:none;font-size:22px;color:#ff66b2;margin-bottom:20px;}
 
-  /* CARTA */
-  .envelope {
-    width: 90%;
-    max-width: 320px;
-    height: 220px;
-    margin: 40px auto 60px;
-    perspective: 1000px;
-    cursor: pointer;
-    z-index: 1;
-  }
+/* ===== GALERIA ===== */
+.galeria{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+.item{
+    position:relative;
+    aspect-ratio:9/16;
+    overflow:hidden;
+    border-radius:15px;
+    border:3px solid white;
+    box-shadow:0 0 10px pink;
+    cursor:pointer;
+    opacity:0;
+    transform:translateY(40px);
+    transition:.6s ease;
+}
+.item.show{opacity:1;transform:translateY(0);}
+.item img,.item video{width:100%;height:100%;object-fit:cover;}
 
-  .envelope-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transition: transform 1s;
-    transform-style: preserve-3d;
-  }
+/* ===== LIGHTBOX ===== */
+#lightbox{
+    position:fixed;inset:0;
+    background:rgba(0,0,0,.95);
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+#lightbox-content{
+    max-width:90%;max-height:80%;
+}
+#lightbox img,#lightbox video{
+    max-width:100%;
+    max-height:80vh;
+    border-radius:15px;
+}
+.nav{
+    position:absolute;
+    top:50%;transform:translateY(-50%);
+    font-size:40px;color:white;
+    cursor:pointer;padding:20px;
+}
+.prev{left:10px;}
+.next{right:10px;}
+.progress{
+    position:absolute;top:0;left:0;
+    height:4px;background:#ff4da6;
+    width:0%;
+    transition:width .3s;
+}
 
-  .envelope.open .envelope-inner {
-    transform: rotateX(180deg);
-  }
-
-  .front, .back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border-radius: 12px;
-  }
-
-  .front {
-    background: #c1121f;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.2em;
-    color: #000;
-  }
-
-  .back {
-    background: #e63946;
-    transform: rotateX(180deg);
-    padding: 15px;
-    overflow-y: auto;
-    color: #000;
-    font-size: 0.95em;
-    line-height: 1.6;
-  }
-
-  @media (max-width: 480px) {
-    .envelope {
-      height: 240px;
-    }
-  }
+/* ===== CARTA COM ENVELOPE ===== */
+.carta-container{
+    position:relative;
+    margin:60px auto 100px auto;
+    max-width:700px;
+    text-align:center;
+}
+/* Envelope */
+.envelope{
+    width:300px;
+    height:200px;
+    margin:0 auto;
+    position:relative;
+    cursor:pointer;
+    perspective:1000px;
+}
+.envelope-flap{
+    position:absolute;
+    top:0;left:0;
+    width:100%;height:50%;
+    background:#ff66b2;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+    transform-origin:top center;
+    transform:rotateX(0deg);
+    transition:transform 1s ease;
+    z-index:2;
+}
+.envelope-body{
+    position:absolute;
+    bottom:0;left:0;
+    width:100%;height:100%;
+    background:rgba(255,255,255,0.1);
+    border-radius:0 0 10px 10px;
+    border:2px solid #ff66b2;
+}
+/* Carta digitando */
+.carta-digitar{
+    display:none;
+    background:rgba(255,255,255,0.08);
+    border-radius:15px;
+    padding:30px 20px;
+    backdrop-filter:blur(12px);
+    box-shadow:0 0 20px rgba(255,77,166,0.4);
+    margin-top:20px;
+    line-height:1.6;
+    position:relative;
+}
+/* Partículas */
+.particle{
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:hsl(330,100%,70%);
+    pointer-events:none;
+    animation:particleAnim 1.5s ease-out forwards;
+}
+@keyframes particleAnim{
+    to {transform:translateY(-100px) scale(0);opacity:0;}
+}
+.carta-digitar h2{color:#ff66b2;margin-bottom:15px;}
+.carta-digitar p{font-size:18px;margin-bottom:10px;}
+@media(max-width:600px){
+    .carta-digitar p{font-size:16px;}
+}
 </style>
 </head>
 
-<body onclick="ativarMusica()">
+<body>
 
-<!-- MÚSICA (COMEÇA MUTADA) -->
-<audio id="musica" autoplay loop muted>
-  <source src="musica.mp3.mp3" type="audio/mp3">
+<div id="telaSenha">
+    <h2>Digite o início da nossa história ❤️</h2>
+    <input type="password" id="senha" placeholder="Ex: 13102025">
+    <button onclick="verificarSenha()">Entrar</button>
+</div>
+
+<div class="container">
+<h1>Feliz 4 Meses ❤️</h1>
+<div class="contador" id="contador"></div>
+
+<button onclick="mostrarSurpresa()">Clique para uma surpresa 💍</button>
+<div id="surpresa">Eu escolheria você em todas as vidas ❤️</div>
+
+<div class="galeria" id="galeria">
+<div class="item"><img src="foto1.jpeg"></div>
+<div class="item"><img src="foto2.jpeg"></div>
+<div class="item"><img src="foto3.jpeg"></div>
+<div class="item"><img src="foto4.jpeg"></div>
+<div class="item"><img src="foto5.jpeg"></div>
+<div class="item"><img src="foto6.jpeg"></div>
+<div class="item"><img src="foto7.jpeg"></div>
+<div class="item"><img src="foto8.jpeg"></div>
+<div class="item"><video src="video1.mp4"></video></div>
+<div class="item"><video src="video2.mp4"></video></div>
+<div class="item"><video src="video3.mp4"></video></div>
+<div class="item"><video src="video4.mp4"></video></div>
+<div class="item"><video src="video7.mp4"></video></div>
+</div>
+
+<!-- CARTA COM ENVELOPE -->
+<div class="carta-container">
+    <div class="envelope" id="envelope">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body"></div>
+    </div>
+    <div class="carta-digitar" id="carta">
+        <h2>Para o Amor da Minha Vida ❤️</h2>
+        <p id="textoCarta"></p>
+        <p id="mensagemFinal" style="display:none;">💍 Eu te amo mais do que tudo, para sempre seu Te vivo ❤️!</p>
+    </div>
+</div>
+
+</div>
+
+<div id="lightbox">
+<div class="progress" id="progress"></div>
+<div class="nav prev" onclick="mudar(-1)">❮</div>
+<div id="lightbox-content"></div>
+<div class="nav next" onclick="mudar(1)">❯</div>
+</div>
+
+<audio id="musica" loop>
+<source src="musica.mp3" type="audio/mpeg">
 </audio>
 
-<!-- SLIDESHOW -->
-<div class="slideshow-container">
-  <img class="slides active" src="foto1.jpeg">
-  <img class="slides" src="foto2.jpeg">
-  <img class="slides" src="foto3.jpeg">
-  <img class="slides" src="foto4.jpeg">
-  <img class="slides" src="foto5.jpeg">
-</div>
-
-<!-- CARTA -->
-<div class="envelope" onclick="abrirCarta()">
-  <div class="envelope-inner">
-    <div class="front">🍎</div>
-    <div class="back">
-      <p>
-        Amor, amar você é como acordar todos os dias com o coração em paz, mesmo quando o mundo lá fora insiste em bagunçar tudo.
-      </p>
-      <p>
-        Amar você não é esforço, é escolha diária — e a mais fácil que já fiz.
-      </p>
-      <p>
-        Eu te amo, amor, com tudo o que sou 🍎
-      </p>
-    </div>
-  </div>
-</div>
-
 <script>
-  /* EMOJIS */
-  function criarCoracao() {
-    const heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.style.left = Math.random() * window.innerWidth + 'px';
-    heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
-    heart.textContent = '🍎';
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-  }
-  setInterval(criarCoracao, 500);
+function verificarSenha(){
+    if(senha.value==="13102025"){
+        telaSenha.style.display="none";
+        musica.play();
+    }else alert("Senha incorreta ❤️");
+}
 
-  /* SLIDES */
-  let index = 0;
-  const slides = document.querySelectorAll('.slides');
+/* Estrelas */
+for(let i=0;i<100;i++){
+    let e=document.createElement("div");
+    e.className="estrela";
+    e.style.left=Math.random()*100+"vw";
+    e.style.top=Math.random()*100+"vh";
+    e.style.animationDuration=(Math.random()*3+1)+"s";
+    document.body.appendChild(e);
+}
 
-  function showSlides() {
-    slides.forEach(slide => slide.classList.remove('active'));
-    slides[index].classList.add('active');
-    index = (index + 1) % slides.length;
-    setTimeout(showSlides, 3000);
-  }
-  showSlides();
+/* Contador */
+var dataInicio=new Date(2025,9,13,0,0,0);
+setInterval(()=>{
+    let agora=new Date();
+    let diff=agora-dataInicio;
 
-  /* CARTA */
-  function abrirCarta() {
-    document.querySelector('.envelope').classList.toggle('open');
-  }
+    let anos=Math.floor(diff/(1000*60*60*24*365));
+    let meses=Math.floor((diff%(1000*60*60*24*365))/(1000*60*60*24*30));
+    let dias=Math.floor((diff%(1000*60*60*24*30))/(1000*60*60*24));
+    let horas=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    let minutos=Math.floor((diff%(1000*60*60))/(1000*60));
+    let segundos=Math.floor((diff%(1000*60))/1000);
+    let ms=agora.getMilliseconds();
 
-  /* ATIVA SOM NO PRIMEIRO TOQUE */
-  function ativarMusica() {
-    const musica = document.getElementById('musica');
-    musica.muted = false;
-    musica.play();
-    document.body.onclick = null;
-  }
+    contador.innerHTML=`Estamos juntos ❤️<br><br>
+    <span class="numero">${anos}</span>a 
+    <span class="numero">${meses}</span>m 
+    <span class="numero">${dias}</span>d<br>
+    <span class="numero">${horas}</span>h 
+    <span class="numero">${minutos}</span>m 
+    <span class="numero">${segundos}</span>s 
+    <span class="numero">${ms}</span>ms`;
+},10);
+
+/* Scroll animação */
+const itens=document.querySelectorAll('.item');
+const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+        if(e.isIntersecting)e.target.classList.add("show");
+    });
+},{threshold:.2});
+itens.forEach(i=>observer.observe(i));
+
+/* Lightbox */
+let atual=0;
+const midias=document.querySelectorAll(".item");
+midias.forEach((item,i)=>{
+    item.addEventListener("click",()=>{
+        atual=i;
+        abrir();
+    });
+});
+function abrir(){
+    let box=lightbox;
+    let content=document.getElementById("lightbox-content");
+    content.innerHTML="";
+    let clone=midias[atual].firstElementChild.cloneNode(true);
+    clone.controls=true;
+    content.appendChild(clone);
+    box.style.display="flex";
+    atualizarBarra();
+}
+function mudar(dir){
+    atual=(atual+dir+midias.length)%midias.length;
+    abrir();
+}
+function atualizarBarra(){
+    progress.style.width=((atual+1)/midias.length*100)+"%";
+}
+lightbox.addEventListener("click",e=>{
+    if(e.target.id==="lightbox")lightbox.style.display="none";
+});
+document.querySelectorAll("video").forEach(v=>{
+    v.addEventListener("play",()=>{
+        musica.volume=0.2;
+        document.querySelectorAll("video").forEach(o=>{
+            if(o!==v)o.pause();
+        });
+    });
+    v.addEventListener("pause",()=>musica.volume=1);
+});
+function mostrarSurpresa(){surpresa.style.display="block"}
+
+/* ===== CARTA ENVELOPE + DIGITAÇÃO ===== */
+const envelope=document.getElementById("envelope");
+const cartaDiv=document.getElementById("carta");
+const textoCarta=document.getElementById("textoCarta");
+const mensagemFinal=document.getElementById("mensagemFinal");
+const texto="Meu amor, hoje celebramos quatro meses de uma história que quero viver pelo resto da vida. Cada sorriso seu ilumina meus dias, cada abraço seu me dá paz e cada momento se transforma em memória preciosa. Obrigado por me ensinar o que é amar de verdade. Eu te escolho todos os dias, eu escolho nós.";
+let index=0;
+envelope.addEventListener("click",()=>{
+    envelope.querySelector(".envelope-flap").style.transform="rotateX(-180deg)";
+    setTimeout(()=>{
+        cartaDiv.style.display="block";
+        digitar();
+        gerarParticulas();
+    },1000);
+});
+function digitar(){
+    if(index<texto.length){
+        textoCarta.innerHTML+=texto.charAt(index);
+        index++;
+        setTimeout(digitar,35);
+    }else{
+        setTimeout(()=>mensagemFinal.style.display="block",500);
+    }
+}
+function gerarParticulas(){
+    for(let i=0;i<20;i++){
+        const p=document.createElement("div");
+        p.classList.add("particle");
+        document.body.appendChild(p);
+        p.style.left=(envelope.offsetLeft+150+Math.random()*100-50)+"px";
+        p.style.top=(envelope.offsetTop+100+Math.random()*50-25)+"px";
+        p.style.background=`hsl(${Math.random()*360},100%,70%)`;
+        p.addEventListener("animationend",()=>p.remove());
+    }
+}
 </script>
 
 </body>
 </html>
+
 
